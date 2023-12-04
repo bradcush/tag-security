@@ -497,6 +497,20 @@ productions apps. It is installed directly by users and administrators for
 Kubernetes. OpenKruise is a CNCF([Cloud Native Computing
 Foundation](https://cncf.io/)) project.
 
+### Development pipeline recommendations
+
+- Automatic SBOM generation as part of the build process according to standards
+  like CycloneDX or SPDX for a standardized Software Bill of Materials.
+- Integrate supply chain attestation and verification to ensure proper build
+  processes were followed to create artifacts used for releases. Examples
+  include in-toto metadata generation and verification during build steps using
+  tools like [Witness](https://github.com/testifysec/witness).
+- Automated changelog generation so changelogs are accurately generated from
+  commits when a release is created and can't be changed manually to
+  misrepresent the contents of a release.
+- Added documentation to explain established security properties of OpenKruise
+  and principles that should be understand by contributing developers.
+
 ## Security issue resolution
 
 - Responsible Disclosures Process: OpenKruise has a responsible disclosure
@@ -532,6 +546,12 @@ vulnerability mitigations.
 
 The advisory becomes public only when the patched version is released to inform
 the community about the breach and its potential security impact.
+
+### Security issue resolution recommendations
+
+Public communication of past security vulnerabilities for proper disclosure of
+vulnerabilities and timely fixes. Should include public post-mortems for any
+fixed security vulnerabiltiy that has been previously fixed.
 
 ## Appendix
 
