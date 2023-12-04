@@ -6,8 +6,9 @@ preparing any security documentation for their users. This document is ideal
 for projects currently in the CNCF **sandbox** as well as projects that are
 looking to receive a joint assessment and currently in CNCF **incubation**.
 
-For a detailed guide with step-by-step discussion and examples, check out the free Express Learning course provided by Linux Foundation Training & Certification:
-[Security Assessments for Open Source Projects](https://training.linuxfoundation.org/express-learning/security-self-assessments-for-open-source-projects-lfel1005/).
+For a detailed guide with step-by-step discussion and examples, check out the
+free Express Learning course provided by Linux Foundation Training &
+Certification: [Security Assessments for Open Source Projects](https://training.linuxfoundation.org/express-learning/security-self-assessments-for-open-source-projects-lfel1005/).
 
 # Self-assessment outline
 
@@ -274,21 +275,23 @@ security audit.
 
 ## Security functions and features
 
-Critical:
-- Security scanning with Snyk in the CI pipeline identifies vulnerabilities in
-container images so only verified images are displayed.
-- Security scanning with CodeQL in the CI pipeline identifies variants of known
-security vulnerability in the codebase.
-- Supporting only recent software versions that provide patches and updates
-mitigates general vulnerabilities.
+### Critical
 
-Security Relevant:
+- Security scanning with Snyk in the CI pipeline identifies vulnerabilities in
+  container images so only verified images are displayed.
+- Security scanning with CodeQL in the CI pipeline identifies variants of known
+  security vulnerability in the codebase.
+- Supporting only recent software versions that provide patches and updates
+  mitigates general vulnerabilities.
+
+### Security Relevant
+
 - Regularly scanning the code in the main (master) and nightly builds, as well
-as in pull requests (PRs) for the Go programming language helps identify any
-potential vulnerabilities or issues before release.
+  as in pull requests (PRs) for the Go programming language helps identify any
+  potential vulnerabilities or issues before release.
 - Scanning the container images that are published on the GitHub Container
-Registry ensures that the images, which are used to run OpenKruise in a
-Kubernetes environment, are secure.
+  Registry ensures that the images, which are used to run OpenKruise in a
+  Kubernetes environment, are secure.
 
 ### Threat Modeling with STRIDE
 
@@ -298,7 +301,9 @@ Kubernetes environment, are secure.
 - An attacker could impersonate an OpenKruise admin, maintainer, or somebody
   with elevated privilege in order to access data within the containers, code
   repositories, or contributions from other developers.
-- Recommended Mitigations
+
+##### Recommended Mitigations
+
 - Assign proper roles (per principle of least privilege) to the users using
   Role Based Authorization Control of Kubernetes.
 - Use mutual TLS to confirm that both OpenKruise and the Kubernetes cluster
@@ -310,7 +315,9 @@ Kubernetes environment, are secure.
 - OpenKruise components could be tampered with during build, installation, or
   runtime, potentially allowing an attacker to download malware into the host
   system, OpenKruise itself, or Kubernetes.
-- Recommended Mitigations
+
+##### Recommended Mitigations
+
 - Use checksums and/or digital signatures to monitor for unauthorized
   modifications.
 - Only allow the downloading of OpenKruise components from the official website
@@ -323,9 +330,11 @@ Kubernetes environment, are secure.
   they have performed, particularly if they include any changes made to
   configuration updates or scaling within the Kubernetes clusters managed by
   OpenKruise.
-- Recommended Mitigations
-- Enable the auditing logs of Kubernetes apiserver so any request to OpenKruise
-  is logged.
+
+##### Recommended Mitigations
+
+Enable the auditing logs of Kubernetes apiserver so any request to OpenKruise
+is logged.
 
 #### Information Disclosure:
 
@@ -333,7 +342,9 @@ Kubernetes environment, are secure.
 - OpenKruise relies on user-reporting of vulnerabilities through Gmail or
   GitHub. If a user discovers a bug and reports it, an attacker may find a way
   to view such reports and exploit the bug before it can be fixed.
-- Recommended Mitigations
+
+##### Recommended Mitigations
+
 - Report vulnerability via github security page or private email
 - Encrypt all logs of vulnerability reports sent by users to OpenKruise and
   implement strict access controls to prevent unauthorized access to the log
@@ -345,7 +356,9 @@ Kubernetes environment, are secure.
 - OpenKruise controllers, daemons, or the applications being managed may
   consume more resources than allocated and affect the availability of the
   Kubernetes cluster.
-- Recommended Mitigations
+
+##### Recommended Mitigations
+
 - Use rate limiting to lessen the number of requests a user can make to
   OpenKruise's components.
 - Set the resource request and limit values of OpenKruise component so as to
@@ -357,7 +370,9 @@ Kubernetes environment, are secure.
 - If an attacker compromises a part of OpenKruise, particularly one that has
   permissions to modify Kubernetes resources, they could potentially escalate
   their privileges within the Kubernetes cluster.
-- Recommended Mitigations
+
+##### Recommended Mitigations
+
 - Enable only required features of OpenKruise via feature gates, so give
   OpenKruise least privilege necessary in regards to Kubernetes.
 - Grant access of kruise-manager to limited and trusted operators
@@ -530,11 +545,37 @@ the community about the breach and its potential security impact.
   [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/2908/badge)](https://www.bestpractices.dev/projects/2908)
 - **Case Studies** <br>
   Many organisations have adopted OpenKruise and are using our project in
-  - Alibaba Group, also known as Alibaba, is a Chinese multinational technology company specializing in e-commerce, retail, Internet, and technology. Alibaba had made its core systems fully cloud-native, and had managed more than 10w OpenKruise workload, and gained 80% improvement in deployment efficiency. Alibaba had utilized many workloads in OpenKruise, including CloneSet, Advance StatefulSet, SidecarSet, Advance DaemonSet etc. Their story had been presented in many [blog posts](https://www.alibabacloud.com/blog/openkruise-the-cloud-native-platform-for-the-comprehensive-process-of-alibabas-double-11_596966).
-  - Ctrip: a Chinese multinational online travel company, is using OpenKruise advanced workload to build their cloud native PaaS platform. They rely on the inplace update feature of openkruise and manage more than 2.8w CloneSet and 200+ advance StatefulSet. Their story had been presented in a [KubeMeet sharing](https://developer.aliyun.com/ebook/7564/87513)
-  - Oppo: a Chinese consumer electronics manufacturer, is using OpenKruise to manage large scale stateful applications. Oppo rely on the inplace-update feature of OpenKruise, and had even customized K8S so that OpenKruise can be extended to inplace update fields other than container images. They share their story in a [blog post](https://mp.weixin.qq.com/s/hRvZz_bZfchmP0tkF6M2OA).
-  - Ant Group: formerly known as Ant Financial, a world leading internet open platform, owns the world's largest online payment platform Alipay. Ant Group chose Kubernetes to orchestrate the tens-of-thousands-of-node clusters in its data centers. To manage these nodes, they chose OpenKruise advance daemonset to manage node agents, utilizing the enhanced rolling strategy such as rolling selector, partition rolling. They are consented to share necessary details privately with the TOC, if required.
-  - LinkedIn: a leading business and employment-oriented online service in America， is using OpenKruise CloneSet to manage large scale workloads for the inplace-update and enhanced PVC support feature. In addition, they're evaluating the container launch priority feature to ensure their configuration update sequence in pod creation as well as container inplace-update scenarios.
+  - Alibaba Group, also known as Alibaba, is a Chinese multinational technology
+    company specializing in e-commerce, retail, Internet, and technology.
+    Alibaba had made its core systems fully cloud-native, and had managed more
+    than 10w OpenKruise workload, and gained 80% improvement in deployment
+    efficiency. Alibaba had utilized many workloads in OpenKruise, including
+    CloneSet, Advance StatefulSet, SidecarSet, Advance DaemonSet etc. Their
+    story had been presented in many [blog posts](https://www.alibabacloud.com/blog/openkruise-the-cloud-native-platform-for-the-comprehensive-process-of-alibabas-double-11_596966).
+  - Ctrip: a Chinese multinational online travel company, is using OpenKruise
+    advanced workload to build their cloud native PaaS platform. They rely on
+    the inplace update feature of openkruise and manage more than 2.8w CloneSet
+    and 200+ advance StatefulSet. Their story had been presented in a [KubeMeet
+    sharing](https://developer.aliyun.com/ebook/7564/87513)
+  - Oppo: a Chinese consumer electronics manufacturer, is using OpenKruise to
+    manage large scale stateful applications. Oppo rely on the inplace-update
+    feature of OpenKruise, and had even customized K8S so that OpenKruise can
+    be extended to inplace update fields other than container images. They
+    share their story in a [blog
+    post](https://mp.weixin.qq.com/s/hRvZz_bZfchmP0tkF6M2OA).
+  - Ant Group: formerly known as Ant Financial, a world leading internet open
+    platform, owns the world's largest online payment platform Alipay. Ant
+    Group chose Kubernetes to orchestrate the tens-of-thousands-of-node
+    clusters in its data centers. To manage these nodes, they chose OpenKruise
+    advance daemonset to manage node agents, utilizing the enhanced rolling
+    strategy such as rolling selector, partition rolling. They are consented to
+    share necessary details privately with the TOC, if required.
+  - LinkedIn: a leading business and employment-oriented online service in
+    America， is using OpenKruise CloneSet to manage large scale workloads for
+    the inplace-update and enhanced PVC support feature. In addition, they're
+    evaluating the container launch priority feature to ensure their
+    configuration update sequence in pod creation as well as container
+    inplace-update scenarios.
 - **Related Projects / Vendors** <br>
   - **Istio -** Istio is a service mesh that provides a uniform way to secure,
     connect, and monitor microservices. It manages the communication between
