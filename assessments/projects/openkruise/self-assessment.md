@@ -637,3 +637,20 @@ fixed security vulnerabiltiy that has been previously fixed.
     concentrates on traditional application deployment and management
     strategies. OpenKruise's controllers provide features like rolling updates
     and canary releases for more controlled application updates.
+
+## Security recomendations summary
+
+- Automatic SBOM generation as part of the build process according to standards
+  like CycloneDX or SPDX for a standardized Software Bill of Materials.
+- Integrate supply chain attestation and verification to ensure proper build
+  processes were followed to create artifacts used for releases. Examples
+  include in-toto metadata generation and verification during build steps using
+  tools like [Witness](https://github.com/testifysec/witness).
+- Automated changelog generation so changelogs are accurately generated from
+  commits when a release is created and can't be changed manually to
+  misrepresent the contents of a release.
+- Added documentation to explain established security properties of OpenKruise
+  and principles that should be understand by contributing developers.
+- Public communication of past security vulnerabilities for proper disclosure
+  of vulnerabilities and timely fixes. Should include public post-mortems for
+  any fixed security vulnerabiltiy that has been previously fixed.
